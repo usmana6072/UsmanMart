@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UsmanMart</string>
+    <string name="default_web_client_id">259877963265-5urn9c41mvgqsle1ojeoufsa5v2ehifu.apps.googleusercontent.com</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_username">Enter username</string>
+    <string name="enter_search_terms_related_to_your_product">Enter Search terms separated by ,</string>
+    <string name="enter_search_terms_related_to_your_product_to_improve_ranking_in_search">Enter Search terms related to your product to improve ranking in search</string>
+</resources>

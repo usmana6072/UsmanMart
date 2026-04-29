@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "259877963265",
+    "firebase_url": "https://usmanmart-cce76-default-rtdb.firebaseio.com",
+    "project_id": "usmanmart-cce76",
+    "storage_bucket": "usmanmart-cce76.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259877963265:android:df91075c64784c1b9fa200",
+        "android_client_info": {
+          "package_name": "com.techtitans.usman.usmanmart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259877963265-hm8rvuvfgr55snobqm02pmh6tq3c0hfj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techtitans.usman.usmanmart",
+            "certificate_hash": "3632e35c8aed70354b792302b2b8d6bd0f4d9267"
+          }
+        },
+        {
+          "client_id": "259877963265-5urn9c41mvgqsle1ojeoufsa5v2ehifu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6mEF5zbuZ3fmJTs4ytVLy2EgJnSVFECY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259877963265-5urn9c41mvgqsle1ojeoufsa5v2ehifu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259877963265:android:74d5bc75f91603fa9fa200",
+        "android_client_info": {
+          "package_name": "com.techtitans.usman.usmanmartbuyer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259877963265-23rks9e081m6pmsqaeuc6u6lce01s65a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techtitans.usman.usmanmartbuyer",
+            "certificate_hash": "3632e35c8aed70354b792302b2b8d6bd0f4d9267"
+          }
+        },
+        {
+          "client_id": "259877963265-5urn9c41mvgqsle1ojeoufsa5v2ehifu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6mEF5zbuZ3fmJTs4ytVLy2EgJnSVFECY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259877963265-5urn9c41mvgqsle1ojeoufsa5v2ehifu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1B5E20"
+    android:orientation="vertical"
+    tools:context=".ProductDetailsActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#1B5E20"
+        app:titleTextColor="@android:color/white"
+        android:layout_marginTop="15dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/backArrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/back"
+                app:tint="@android:color/white"
+                android:contentDescription="Back"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Details"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/backArrow"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="16dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F8F9FA"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Image Card for product main images -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="380dp"
+                app:cardCornerRadius="16dp"
+                android:padding="5dp"
+                app:cardElevation="6dp">
+
+                <ImageView
+                    android:id="@+id/ivMainImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/image"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Navigation Arrows for image scroll -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:id="@+id/leftMove"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:srcCompat="@drawable/left_arrow"
+                    app:tint="#1B5E20"/>
+
+                <ImageView
+                    android:id="@+id/rightMove"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:srcCompat="@drawable/right_arrow"
+                    app:tint="#1B5E20"/>
+
+            </LinearLayout>
+
+            <!--Rating-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:rating="4.5"
+                    android:stepSize="0.5"
+                    android:progressTint="#FFD700"
+                    android:secondaryProgressTint="#FFD700"
+                    android:progressBackgroundTint="#E0E0E0"
+                    android:isIndicator="true"/>
+
+                <TextView
+                    android:id="@+id/tvRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="4.5 (234 Reviews)"
+                    android:textColor="#616161" />
+            </LinearLayout>
+            <!-- Product Name text view -->
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Product Name"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:padding="12dp"
+                android:background="@drawable/singup_tv_bg"/>
+
+            <!-- Store name text view  -->
+            <TextView
+                android:id="@+id/tvStoreName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Store Name"
+                android:textSize="16sp"
+                android:textColor="#757575"
+                android:padding="12dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/singup_tv_bg"/>
+
+            <!-- Price text view -->
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1200 PKR"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1B5E20"
+                android:padding="12dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/singup_tv_bg"/>
+            <TextView
+                android:id="@+id/tvSalePrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1200 PKR"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1B5E20"
+                android:padding="12dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/singup_tv_bg"/>
+            <TextView
+                android:id="@+id/tvSalePercentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1200 PKR"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1B5E20"
+                android:padding="12dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/singup_tv_bg"/>
+
+            <!-- Category text view  -->
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textSize="16sp"
+                android:textColor="#212121"
+                android:padding="12dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/singup_tv_bg"/>
+
+            <!-- Bullet Points of product -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Bullet Points"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvBulletPoint1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/singup_tv_bg"
+                android:padding="10dp"
+                android:text="• First bullet point"
+                android:textColor="#424242" />
+
+            <TextView
+                android:id="@+id/tvBulletPoint2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/singup_tv_bg"
+                android:padding="10dp"
+                android:text="• Second bullet point"
+                android:textColor="#424242" />
+
+            <TextView
+                android:id="@+id/tvBulletPoint3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/singup_tv_bg"
+                android:padding="10dp"
+                android:text="• Third bullet point"
+                android:textColor="#424242" />
+
+            <!-- Description text view -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Description"
+                android:textColor="#424242"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:textColor="#424242"
+                android:layout_height="wrap_content"
+                android:text="Product description goes here..."
+                android:textSize="16sp"
+                android:padding="12dp"
+                android:background="@drawable/singup_tv_bg"
+                android:layout_marginTop="8dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
