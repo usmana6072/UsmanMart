@@ -178,6 +178,10 @@ public class StoreFormActivity extends AppCompatActivity {
                     .child("storeId")
                     .setValue(model.getStoreId())
                     .addOnSuccessListener(unused1 -> {
+                        getSharedPreferences("app_prefs", MODE_PRIVATE)
+                                .edit()
+                                .putBoolean("has_store_" + model.getSellerId(), true)
+                                .apply();
 
                         Toast.makeText(this, "Store Created Successfully", Toast.LENGTH_SHORT).show();
 

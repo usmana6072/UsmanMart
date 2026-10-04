@@ -4,31 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dashboard_bg"
     tools:context=".fragments.ProductsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProductsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/btnNext"/>
+        android:clipToPadding="false"
+        android:paddingTop="8dp"
+        android:paddingBottom="80dp" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addProductBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:padding="5dp">
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="Add Product"
+        android:src="@drawable/plus"
+        app:backgroundTint="@color/terracotta_primary"
+        app:tint="@color/white" />
 
-        <ImageView
-            android:id="@+id/addProductBtn"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="35dp"
-            android:elevation="10dp"
-            android:src="@drawable/plus"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

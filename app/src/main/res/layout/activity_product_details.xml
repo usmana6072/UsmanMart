@@ -5,17 +5,17 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1B5E20"
+    android:background="@color/dashboard_bg"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context=".ProductDetailsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#1B5E20"
-        app:titleTextColor="@android:color/white"
-        android:layout_marginTop="15dp">
+        android:background="@color/terracotta_primary"
+        app:titleTextColor="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,28 +25,29 @@
                 android:id="@+id/backArrow"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:srcCompat="@drawable/back"
-                app:tint="@android:color/white"
+                app:tint="@color/white"
                 android:contentDescription="Back"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:text="Product Details"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/backArrow"
-                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="16dp"/>
+                app:layout_constraintStart_toEndOf="@id/backArrow"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -55,17 +56,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F8F9FA"
             android:orientation="vertical"
             android:padding="16dp">
 
             <!-- Image Card for product main images -->
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="380dp"
+                android:layout_height="320dp"
                 app:cardCornerRadius="16dp"
-                android:padding="5dp"
-                app:cardElevation="6dp">
+                app:cardElevation="0dp"
+                app:strokeColor="@color/divider_light"
+                app:strokeWidth="1dp"
+                app:cardBackgroundColor="@color/card_white">
 
                 <ImageView
                     android:id="@+id/ivMainImage"
@@ -74,48 +76,52 @@
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/image"/>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Navigation Arrows for image scroll -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="12dp">
+                android:padding="8dp">
 
                 <ImageView
                     android:id="@+id/leftMove"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+                    android:layout_marginEnd="16dp"
                     app:srcCompat="@drawable/left_arrow"
-                    app:tint="#1B5E20"/>
+                    app:tint="@color/terracotta_primary"/>
 
                 <ImageView
                     android:id="@+id/rightMove"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     app:srcCompat="@drawable/right_arrow"
-                    app:tint="#1B5E20"/>
+                    app:tint="@color/terracotta_primary"/>
 
             </LinearLayout>
 
-            <!--Rating-->
+            <!-- Rating -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_marginTop="6dp">
+                android:layout_marginTop="4dp">
 
                 <RatingBar
                     android:id="@+id/ratingBar"
+                    style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:numStars="5"
                     android:rating="4.5"
                     android:stepSize="0.5"
-                    android:progressTint="#FFD700"
-                    android:secondaryProgressTint="#FFD700"
-                    android:progressBackgroundTint="#E0E0E0"
+                    android:progressTint="#FFB800"
+                    android:secondaryProgressTint="#FFB800"
+                    android:progressBackgroundTint="@color/divider_light"
                     android:isIndicator="true"/>
 
                 <TextView
@@ -124,141 +130,198 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:text="4.5 (234 Reviews)"
-                    android:textColor="#616161" />
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12.5sp" />
             </LinearLayout>
-            <!-- Product Name text view -->
-            <TextView
-                android:id="@+id/tvProductName"
+
+            <!-- Details Container Card -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Product Name"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#212121"
-                android:padding="12dp"
-                android:background="@drawable/singup_tv_bg"/>
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/divider_light"
+                app:strokeWidth="1dp"
+                app:cardBackgroundColor="@color/card_white">
 
-            <!-- Store name text view  -->
-            <TextView
-                android:id="@+id/tvStoreName"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvProductName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Product Name"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/text_primary"/>
+
+                    <TextView
+                        android:id="@+id/tvStoreName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Store Name"
+                        android:textSize="13.5sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="2dp"/>
+
+                    <TextView
+                        android:id="@+id/tvPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1200 PKR"
+                        android:textSize="18sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/terracotta_primary"
+                        android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvSalePrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1200 PKR"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/terracotta_primary"
+                        android:layout_marginTop="4dp"/>
+
+                    <TextView
+                        android:id="@+id/tvSalePercentage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="20% OFF"
+                        android:textSize="13sp"
+                        android:textColor="@color/status_completed_text"
+                        android:layout_marginTop="2dp"/>
+
+                    <TextView
+                        android:id="@+id/tvCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Category"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary"
+                        android:layout_marginTop="6dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider_light"
+                        android:layout_marginVertical="12dp"/>
+
+                    <!-- Bullet Points -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bullet Points"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" />
+
+                    <TextView
+                        android:id="@+id/tvBulletPoint1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="• First bullet point"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13.5sp" />
+
+                    <TextView
+                        android:id="@+id/tvBulletPoint2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="• Second bullet point"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13.5sp" />
+
+                    <TextView
+                        android:id="@+id/tvBulletPoint3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="• Third bullet point"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13.5sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider_light"
+                        android:layout_marginVertical="12dp"/>
+
+                    <!-- Description -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Description"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" />
+
+                    <TextView
+                        android:id="@+id/tvDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Product description goes here..."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13.5sp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvReviews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Store Name"
-                android:textSize="16sp"
-                android:textColor="#757575"
-                android:padding="12dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/singup_tv_bg"/>
+                android:layout_marginTop="12dp"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_review" />
 
-            <!-- Price text view -->
             <TextView
-                android:id="@+id/tvPrice"
+                android:id="@+id/tvNoReviews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1200 PKR"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#1B5E20"
-                android:padding="12dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/singup_tv_bg"/>
-            <TextView
-                android:id="@+id/tvSalePrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="1200 PKR"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#1B5E20"
-                android:padding="12dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/singup_tv_bg"/>
-            <TextView
-                android:id="@+id/tvSalePercentage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="1200 PKR"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#1B5E20"
-                android:padding="12dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/singup_tv_bg"/>
+                android:text="No reviews yet. Be the first to review!"
+                android:textColor="@color/text_hint"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:padding="16dp"
+                android:visibility="gone"/>
 
-            <!-- Category text view  -->
-            <TextView
-                android:id="@+id/tvCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Category"
-                android:textSize="16sp"
-                android:textColor="#212121"
-                android:padding="12dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/singup_tv_bg"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvReviews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:nestedScrollingEnabled="false"
+        android:clipToPadding="false"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        tools:listitem="@layout/item_review" />
 
-            <!-- Bullet Points of product -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Bullet Points"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvBulletPoint1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/singup_tv_bg"
-                android:padding="10dp"
-                android:text="• First bullet point"
-                android:textColor="#424242" />
+    <!-- No Reviews -->
 
-            <TextView
-                android:id="@+id/tvBulletPoint2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/singup_tv_bg"
-                android:padding="10dp"
-                android:text="• Second bullet point"
-                android:textColor="#424242" />
+    <TextView
+        android:id="@+id/tvNoReviews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No reviews yet. Be the first to review!"
+        android:textColor="#9E9E9E"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:visibility="gone"/>
 
-            <TextView
-                android:id="@+id/tvBulletPoint3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:background="@drawable/singup_tv_bg"
-                android:padding="10dp"
-                android:text="• Third bullet point"
-                android:textColor="#424242" />
-
-            <!-- Description text view -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Description"
-                android:textColor="#424242"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="match_parent"
-                android:textColor="#424242"
-                android:layout_height="wrap_content"
-                android:text="Product description goes here..."
-                android:textSize="16sp"
-                android:padding="12dp"
-                android:background="@drawable/singup_tv_bg"
-                android:layout_marginTop="8dp"/>
-
-        </LinearLayout>
+</LinearLayout>
     </ScrollView>
 
 </LinearLayout>

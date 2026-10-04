@@ -1,5 +1,8 @@
 package com.techtitans.usman.usmanmart;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -41,7 +45,27 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar=binding.toolbar2;
         TextView textview=toolbar.findViewById(R.id.textView3);
 
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.MainFragment,new HomeFragment())
+                .commit();
+        textview.setText(R.string.app_name);
 
+        //permission request
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+
+            if(ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS)
+                    != PackageManager.PERMISSION_GRANTED){
+
+                ActivityCompat.requestPermissions(
+                        this,
+                        new String[]{
+                                Manifest.permission.POST_NOTIFICATIONS
+                        },
+                        101);
+            }
+        }
 
         binding.BottomNav.setOnItemSelectedListener(e->{
             if(e.getItemId()==R.id.homeItem){
@@ -91,4 +115,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void navigateToTab(int itemId) {
+        binding.BottomNav.setSelectedItemId(itemId);
+    }
 }

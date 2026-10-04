@@ -1,7 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.UsmanMart" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Dark Brand Colors -->
+        <item name="colorPrimary">@color/terracotta_primary</item>
+        <item name="colorPrimaryVariant">@color/terracotta_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/slate_navy</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="android:windowBackground">@color/dashboard_bg</item>
+        <item name="android:statusBarColor">@color/terracotta_dark</item>
+        <item name="android:navigationBarColor">@color/card_white</item>
     </style>
 </resources>

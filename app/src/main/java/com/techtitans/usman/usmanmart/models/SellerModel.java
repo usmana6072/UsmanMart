@@ -3,7 +3,7 @@ package com.techtitans.usman.usmanmart.models;
 import java.io.Serializable;
 
 public class SellerModel implements Serializable {
-        String sellerId,userName,Email,Password,storeId,phone;
+        String sellerId,userName,Email,Password,storeId,phone,fcmToken;
         public SellerModel(){
 
         }
@@ -61,5 +61,13 @@ public class SellerModel implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 }

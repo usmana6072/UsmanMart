@@ -5,6 +5,8 @@
     <!-- internet permission -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- storage permission -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:allowBackup="true"
@@ -15,6 +17,17 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.UsmanMart">
+
+        <service
+            android:name=".services.MyFirebaseMessagingService"
+            android:exported="false">
+
+            <intent-filter>
+                <action
+                    android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+
+        </service>
         <activity
             android:name=".EditProfileActivity"
             android:exported="false" />
@@ -23,6 +36,13 @@
             android:exported="false" />
         <activity
             android:name=".forms.EditProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
+<<<<<<< HEAD
+            android:windowSoftInputMode="adjustResize"
+=======
+>>>>>>> d8f0a10 (backup whole project)
             android:exported="false" />
         <activity
             android:name=".CreateSaleActivity"

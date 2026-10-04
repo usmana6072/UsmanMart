@@ -1,1 +1,6 @@
 /build
+# Firebase configuration
+/google-services.json
+
+# Service account credentials
+/src/main/res/raw/service_account.json

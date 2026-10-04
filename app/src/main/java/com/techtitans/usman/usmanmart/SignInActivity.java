@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.techtitans.usman.usmanmart.databinding.ActivitySignInBinding;
 import com.techtitans.usman.usmanmart.forms.StoreFormActivity;
 import com.techtitans.usman.usmanmart.models.SellerModel;
@@ -36,25 +39,34 @@ public class SignInActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
-        // If already logged in → Check store
-        if (auth.getCurrentUser()!=null) {
-            checkStoreAndNavigate(auth.getUid());
+        // If logged in, check local cache for instant 0ms launch
+        if (auth.getCurrentUser() != null) {
+            String uid = auth.getUid();
+            boolean hasStoreLocal = getSharedPreferences("app_prefs", MODE_PRIVATE)
+                    .getBoolean("has_store_" + uid, false);
+
+            if (hasStoreLocal) {
+                goToMain();
+                return;
+            }
         }
+
         EdgeToEdge.enable(this);
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
         dialog = new ProgressDialog(this);
-        dialog.setTitle("Login");
+        dialog.setTitle("Loading Session");
         dialog.setMessage("Please wait...");
         dialog.setCancelable(false);
 
+        // If logged in but cache was empty, show dialog while fetching
+        if (auth.getCurrentUser() != null) {
+            dialog.show();
+            checkStoreAndNavigate(auth.getUid());
+        }
+
         setupGoogleSignIn();
-
-
-
         setupClickListeners();
     }
 
@@ -75,6 +87,14 @@ public class SignInActivity extends AppCompatActivity {
                     .addOnSuccessListener(authResult -> {
                         dialog.dismiss();
                         checkStoreAndNavigate(auth.getCurrentUser().getUid());
+                        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                            @Override
+                            public void onComplete(@NonNull Task<String> task) {
+                                if(!task.isSuccessful())
+                                    return;
+                                storeToken(task.getResult());
+                            }
+                        });
                     })
                     .addOnFailureListener(e -> {
                         dialog.dismiss();
@@ -90,6 +110,10 @@ public class SignInActivity extends AppCompatActivity {
         binding.tvSignUp.setOnClickListener(v ->
                 startActivity(new Intent(this, SignUpActivity.class))
         );
+    }
+
+    private void storeToken(String result) {
+        database.getReference().child("sellers").child(auth.getUid()).child("fcmToken").setValue(result);
     }
 
 
@@ -179,6 +203,14 @@ public class SignInActivity extends AppCompatActivity {
                         checkStoreAndNavigate(user.getUid());
                     }
                 });
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if(!task.isSuccessful())
+                    return;
+                storeToken(task.getResult());
+            }
+        });
     }
 
     private void checkStoreAndNavigate(String uid) {
@@ -188,14 +220,25 @@ public class SignInActivity extends AppCompatActivity {
                 .child("storeId")
                 .get()
                 .addOnSuccessListener(snapshot -> {
-
-                    dialog.dismiss();
+                    if (dialog != null && dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
 
                     if (snapshot.exists()) {
+                        getSharedPreferences("app_prefs", MODE_PRIVATE)
+                                .edit()
+                                .putBoolean("has_store_" + uid, true)
+                                .apply();
                         goToMain();
                     } else {
                         goToStoreForm();
                     }
+                })
+                .addOnFailureListener(e -> {
+                    if (dialog != null && dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                    Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -204,6 +247,7 @@ public class SignInActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
     }
 
     private void goToStoreForm() {
@@ -211,5 +255,6 @@ public class SignInActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
     }
 }

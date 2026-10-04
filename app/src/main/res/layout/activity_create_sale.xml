@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1B5E20"
+    android:background="@color/dashboard_bg"
+    android:fitsSystemWindows="true"
     tools:context=".CreateSaleActivity">
 
     <!-- Toolbar -->
@@ -13,12 +14,12 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="#1B5E20"
-        app:titleTextColor="@android:color/white"
+        android:background="@color/terracotta_primary"
+        app:titleTextColor="@color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="15dp">
+        app:layout_constraintEnd_toEndOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -27,21 +28,21 @@
                 android:id="@+id/backArrow"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:srcCompat="@drawable/back"
-                app:tint="@android:color/white"
+                app:tint="@color/white"
                 android:contentDescription="Back"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Create Sale Page"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"
                 app:layout_constraintStart_toEndOf="@id/backArrow"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -52,13 +53,16 @@
     </androidx.appcompat.widget.Toolbar>
 
     <!-- Main Card -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/saleCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="6dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/card_white"
+        app:strokeColor="@color/divider_light"
+        app:strokeWidth="1dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -67,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="20dp">
 
             <!-- Product Name -->
             <TextView
@@ -75,9 +79,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Product Name"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#212121"/>
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/text_primary"/>
 
             <!-- Original Price -->
             <TextView
@@ -85,17 +89,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Original Price: 1200 PKR"
-                android:textSize="16sp"
-                android:textColor="#757575"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
                 android:layout_marginTop="4dp"/>
 
             <!-- Divider -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#E0E0E0"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"/>
+                android:background="@color/divider_light"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"/>
 
             <!-- Sale Price -->
             <com.google.android.material.textfield.TextInputLayout
@@ -124,8 +128,6 @@
                     android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Start Date -->
-
             <!-- End Date -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -133,20 +135,19 @@
                 android:layout_marginTop="12dp"
                 android:hint="Sale End Date"/>
 
-            <!-- Enable Sale Switch -->
-
             <!-- Save Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreateSale"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="52dp"
                 android:text="Create Sale"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="#1B5E20"
-                android:textColor="@android:color/white"/>
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@color/terracotta_primary"
+                android:textColor="@color/white"
+                app:cornerRadius="14dp"/>
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

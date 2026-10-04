@@ -37,6 +37,7 @@ public class OrderModel implements Serializable {
     // Optional buyer snapshot
     private String buyerName;
     private String buyerPhone;
+    private boolean reviewStatus=false;
 
     public OrderModel() {}
 
@@ -170,5 +171,13 @@ public class OrderModel implements Serializable {
 
     public void setBuyerPhone(String buyerPhone) {
         this.buyerPhone = buyerPhone;
+    }
+
+    public boolean isReviewStatus() {
+        return reviewStatus;
+    }
+
+    public void setReviewStatus(boolean reviewStatus) {
+        this.reviewStatus = reviewStatus;
     }
 }

@@ -1,6 +1,7 @@
 package com.techtitans.usman.usmanmart.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -109,9 +110,17 @@ public class AboutFragment extends Fragment {
         });
 
         binding.btnLogout.setOnClickListener(e->{
+            if (auth.getUid() != null && getContext() != null) {
+                getContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
+                        .edit()
+                        .remove("has_store_" + auth.getUid())
+                        .apply();
+            }
             auth.signOut();
-            getContext().startActivity(new Intent(getContext(), SignInActivity.class)
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            if (getContext() != null) {
+                getContext().startActivity(new Intent(getContext(), SignInActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            }
         });
         return binding.getRoot();
     }

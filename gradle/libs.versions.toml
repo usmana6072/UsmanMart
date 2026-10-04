@@ -18,6 +18,8 @@ recyclerview = "1.4.0"
 viewpager2 = "1.1.0"
 firebaseFirestore = "26.1.1"
 swiperefreshlayout = "1.2.0"
+firebaseMessaging = "25.1.0"
+annotationJvm = "1.10.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -37,6 +39,8 @@ recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version
 viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
+annotation-jvm = { group = "androidx.annotation", name = "annotation-jvm", version.ref = "annotationJvm" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

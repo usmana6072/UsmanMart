@@ -2,6 +2,7 @@ package com.techtitans.usman.usmanmart.forms;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.ArrayAdapter;
@@ -14,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -92,59 +94,59 @@ public class AddProductActivity extends AppCompatActivity {
             Product product = new Product(auth.getUid(), title, des, category, imagesURL.toString(), bulletPoints, tags, price,quantity);
             DatabaseReference reference = database.getReference().child("products").push();
             product.setProductId(reference.getKey());
-            if(product!=null)
-                reference.setValue(product).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    database.getReference().child("categories").child(product.getCategory()).push().setValue(product.getProductId()).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
+            reference.setValue(product).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                database.getReference().child("categories").child(product.getCategory()).push().setValue(product.getProductId()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
 
-                        }
-                    });
-                    if (auth.getUid() == null) {
-                        Toast.makeText(AddProductActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
-                        return;
                     }
-                    database.getReference().child("sellers").child(auth.getUid()).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (!snapshot.exists()) {
-                                Toast.makeText(AddProductActivity.this,
-                                        "Seller data not found",
-                                        Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-
-                            SellerModel seller = snapshot.getValue(SellerModel.class);
-
-                            if (seller == null || seller.getStoreId() == null) {
-                                Toast.makeText(AddProductActivity.this,
-                                        "Store ID is null",
-                                        Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-
-                            database.getReference()
-                                    .child("storeProducts")
-                                    .child(seller.getStoreId())
-                                    .push()
-                                    .setValue(product.getProductId());
-                            Toast.makeText(AddProductActivity.this, "Product Uploaded successfully", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(AddProductActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                });
+                if (auth.getUid() == null) {
+                    Toast.makeText(AddProductActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-            });
+                database.getReference().child("sellers").child(auth.getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!snapshot.exists()) {
+                            Toast.makeText(AddProductActivity.this,
+                                    "Seller data not found",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        SellerModel seller = snapshot.getValue(SellerModel.class);
+
+                        if (seller == null || seller.getStoreId() == null) {
+                            Toast.makeText(AddProductActivity.this,
+                                    "Store ID is null",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        database.getReference()
+                                .child("storeProducts")
+                                .child(seller.getStoreId())
+                                .push()
+                                .setValue(product.getProductId());
+                        Toast.makeText(AddProductActivity.this, "Product Uploaded successfully", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(AddProductActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
             });
 
 
-        }
+
+    }
 
     private boolean getTextViewsData() {
         title=binding.etProductName.getText().toString();
@@ -152,11 +154,11 @@ public class AddProductActivity extends AppCompatActivity {
         category=binding.spinner.getSelectedItem().toString();
         String p=binding.etProductPrice.getText().toString();
         String b1=binding.etBulletPoint1.getText().toString();
-        String b2=binding.etBulletPoint1.getText().toString();
-        String b3=binding.etBulletPoint1.getText().toString();
+        String b2=binding.etBulletPoint2.getText().toString();
+        String b3=binding.etBulletPoint3.getText().toString();
         String quan=binding.etProductQuantity.getText().toString();
         tags=binding.etTags.getText().toString();
-        if(!(title.isEmpty()|| des.isEmpty()||p.isEmpty() || b1.isEmpty() || b2.isEmpty() || b3.isEmpty() ||imagesURL.isEmpty() || quan.isEmpty())){
+        if(!(title.equals("") || des.equals("") || p.equals("") || b1.equals("") || b2.equals("") || b3.equals("") || imagesURL.equals("") || quan.equals(""))){
             price=Double.parseDouble(p);
             quantity=Integer.parseInt(quan);
             bulletPoints=b1+"&&"+b2+"&&"+b3;
@@ -244,7 +246,7 @@ public class AddProductActivity extends AppCompatActivity {
                 public void onSuccess(String requestId, Map resultData) {
                     Toast.makeText(AddProductActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
                     String url=resultData.get("secure_url").toString();
-                    if(imagesURL.isEmpty())
+                    if(imagesURL.toString().equals(""))
                             imagesURL.append(url);
                     else{
                         imagesURL.append("&&");

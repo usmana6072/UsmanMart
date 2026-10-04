@@ -2,6 +2,7 @@ package com.techtitans.usman.usmanmart;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,14 +14,23 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 import com.techtitans.usman.usmanmart.databinding.ActivityProductDetailsBinding;
 import com.techtitans.usman.usmanmart.models.Product;
+import com.techtitans.usman.usmanmart.models.ReviewModel;
+import com.techtitans.usman.usmanmart.recyclerViewAdapters.ReviewAdapter;
+
+import java.util.List;
 
 public class ProductDetailsActivity extends AppCompatActivity {
 
@@ -28,6 +38,10 @@ public class ProductDetailsActivity extends AppCompatActivity {
     FirebaseDatabase database;
     String[] images;
     int currentImage=0;
+    Product product;
+    ReviewAdapter adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +49,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         binding=ActivityProductDetailsBinding.inflate(getLayoutInflater());
         database=FirebaseDatabase.getInstance();
         setContentView(binding.getRoot());
-        Product product=getIntent().getSerializableExtra("product",Product.class);
+        product=getIntent().getSerializableExtra("product",Product.class);
         setSupportActionBar(binding.toolbar2);
 
         images=product.getImages().split("&&");
@@ -105,6 +119,43 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 Picasso.get().load(images[++currentImage]).placeholder(R.drawable.image).into(binding.ivMainImage);
 
         });
+        setupReviewsRecyclerView();
+    }
+
+    private void setupReviewsRecyclerView() {
+        adapter = new ReviewAdapter(this);
+        binding.rvReviews.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvReviews.setAdapter(adapter);
+        loadReviews();
+    }
+
+    private void loadReviews() {
+        CollectionReference reference = FirebaseFirestore.getInstance()
+                .collection("ProductReviews")
+                .document(product.getProductId())
+                .collection("reviews");
+
+        reference.orderBy("timestamp", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    List<ReviewModel> reviews = querySnapshot.toObjects(ReviewModel.class);
+                    adapter.setReviews(reviews);
+
+                    if (reviews.isEmpty()) {
+                        binding.tvNoReviews.setVisibility(View.VISIBLE);
+                        binding.rvReviews.setVisibility(View.GONE);
+                    } else {
+                        binding.tvNoReviews.setVisibility(View.GONE);
+                        binding.rvReviews.setVisibility(View.VISIBLE);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(
+                            this,
+                            "Failed to load reviews",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                });
     }
 
 }

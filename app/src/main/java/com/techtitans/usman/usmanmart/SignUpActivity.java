@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -23,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.techtitans.usman.usmanmart.databinding.ActivitySignUpBinding;
 import com.techtitans.usman.usmanmart.forms.StoreFormActivity;
 import com.techtitans.usman.usmanmart.models.SellerModel;
@@ -62,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
             email=binding.etEmail.getText().toString();
             password=binding.etPassword.getText().toString();
             username=binding.etUserName.getText().toString();
-            if(!email.isEmpty() || !password.isEmpty() || !username.isEmpty())
+            if(!email.isEmpty() && !password.isEmpty() && !username.isEmpty())
                 auth.createUserWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
@@ -76,6 +79,14 @@ public class SignUpActivity extends AppCompatActivity {
                                 Intent intent=new Intent(SignUpActivity.this, StoreFormActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
+                                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<String> task) {
+                                        if(!task.isSuccessful())
+                                            return;
+                                        storeToken(task.getResult());
+                                    }
+                                });
                             }
                         });
                    }
@@ -118,7 +129,6 @@ public class SignUpActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
 
                         FirebaseUser user = auth.getCurrentUser();
-
                         if (user == null) {
                             dialog.dismiss();
                             Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
@@ -151,6 +161,14 @@ public class SignUpActivity extends AppCompatActivity {
                                         startActivity(intent);
                                     }
                                 });
+                        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                            @Override
+                            public void onComplete(@NonNull Task<String> task) {
+                                if(!task.isSuccessful())
+                                    return;
+                                storeToken(task.getResult());
+                            }
+                        });
 
                     } else {
                         dialog.dismiss();
@@ -159,6 +177,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                 });
+
     }
 
     @SuppressLint("GestureBackNavigation")
@@ -166,5 +185,9 @@ public class SignUpActivity extends AppCompatActivity {
     public void onBackPressed() {
         finish();
         super.onBackPressed();
+    }
+
+    private void storeToken(String result) {
+        database.getReference().child("sellers").child(auth.getUid()).child("fcmToken").setValue(result);
     }
 }

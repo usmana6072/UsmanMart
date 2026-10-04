@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+<<<<<<< HEAD
+    <gradient
+        android:angle="135"
+        android:startColor="@color/terracotta_primary"
+        android:endColor="@color/terracotta_dark" />
+</shape>
+=======
+    <solid android:color="#1B5E20"/>
+    <corners android:radius="20dp"/>
+
+</shape>
+>>>>>>> d8f0a10 (backup whole project)
